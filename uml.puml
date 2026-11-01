@@ -1,0 +1,58 @@
+
+@startuml
+interface "Subject<T>" as Subject
+interface "Observer<T>" as Observer
+
+class EventHub
+class PostService
+class ReactionService
+class TrendingObserver
+class ModerationObserver
+
+interface Node
+interface "Visitor<R>" as Visitor
+abstract class TreeVisitor
+
+class Community
+class Group
+class Post
+class Comment
+class Image
+class Video
+
+class EngagementVisitor
+class StatisticsVisitor
+class ModerationVisitor
+class JsonExportVisitor
+
+Subject <|.. EventHub
+Subject <|.. TrendingObserver
+
+Observer <|.. TrendingObserver
+Observer <|.. ModerationObserver
+
+PostService --> Subject
+ReactionService --> Subject
+
+ModerationObserver --> ModerationVisitor
+
+Node <|.. Community
+Node <|.. Group
+Node <|.. Post
+Node <|.. Comment
+Node <|.. Image
+Node <|.. Video
+
+Community o-- Node
+Group o-- Node
+
+Visitor <|.. TreeVisitor
+
+TreeVisitor <|-- EngagementVisitor
+TreeVisitor <|-- StatisticsVisitor
+TreeVisitor <|-- ModerationVisitor
+TreeVisitor <|-- JsonExportVisitor
+
+Node --> Visitor : accept
+
+@enduml
